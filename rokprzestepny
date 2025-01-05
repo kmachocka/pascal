@@ -1,0 +1,51 @@
+program RokPrzestepny;
+
+uses crt;
+
+// Funkcja 1: Odczytanie numeru roku (zwraca liczbę całkowitą)
+function CzytajRok: Integer;
+begin
+  Write('Podaj numer roku: ');
+  ReadLn(Result);  // Odczytujemy rok i zwracamy go
+end;
+
+// Funkcja 2: Sprawdzenie, czy rok jest przestępny (zwraca wartość logiczną)
+function CzyRokPrzestepny(rok: Integer): Boolean;
+begin
+  // Sprawdzamy, czy rok jest podzielny przez 4, ale nie przez 100,
+  // albo jest podzielny przez 400
+  Result := (rok mod 4 = 0) and ((rok mod 100 <> 0) or (rok mod 400 = 0));
+end;
+
+// Procedura 3: Wypisanie, czy rok jest przestępny
+procedure WypiszInformacje(rok: Integer; przestepny: Boolean);
+begin
+  if przestepny then
+    WriteLn('Rok ', rok, ' jest rokiem przestepnym.')
+  else
+    WriteLn('Rok ', rok, ' nie jest rokiem przestepnym.');
+end;
+
+// Procedura główna 4: Wywołanie funkcji i procedur
+procedure SprawdzRok;
+var
+  rok: Integer;
+  przestepny: Boolean;
+begin
+  // 1. Odczytujemy rok
+  rok := CzytajRok;
+  
+  // 2. Sprawdzamy, czy rok jest przestępny
+  przestepny := CzyRokPrzestepny(rok);
+  
+  // 3. Wypisujemy wynik
+  WypiszInformacje(rok, przestepny);
+end;
+
+begin
+  // Wywołanie głównej procedury
+  SprawdzRok;
+  
+  // Czekamy na wciśnięcie klawisza przed zakończeniem programu
+  ReadLn;
+end.
