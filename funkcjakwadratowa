@@ -1,0 +1,56 @@
+program funkcjaKwadratowa;
+
+uses crt, math;
+
+var
+  a, b, c, delta, x1, x2: Real;       //wprowadzam zmienne do zadania nalezace do zbioru liczb rzeczywistych
+
+begin                                                                    //poczatek bloku instrukcji
+  writeln('Rozwiazywanie rownania kwadratowego ax^2 + bx + c = 0');
+  write('Podaj wspolczynnik a: ');
+  readln(a);           //wprowadzanie zmiennej a z konsoli (cin, scanner.in, etc)
+
+  // Sprawdzamy, czy a = 0
+  if a = 0 then
+  begin
+    writeln('To nie jest rownanie kwadratowe.');
+    exit;
+  end;
+
+  write('Podaj wspolczynnik b: ');
+  readln(b);
+
+  write('Podaj wspolczynnik c: ');
+  readln(c);
+
+  // Obliczamy deltę
+  delta := b * b - 4 * a * c;
+  writeln('Delta (D) = ', delta:0:2);  //wyswiela minimalnie 0 przed przecinkiem i
+                                       //maksymalnie 2 po przecinku
+
+  // Sprawdzamy wartość delty
+  if delta > 0 then
+  begin
+    // Dwa różne rozwiązania rzeczywiste
+    x1 := (-b - sqrt(delta)) / (2 * a);
+    x2 := (-b + sqrt(delta)) / (2 * a);
+
+    writeln('Rownanie ma dwa rozwiazania rzeczywiste:');
+    writeln('x1 = ', x1:0:2);
+    writeln('x2 = ', x2:0:2);
+  end
+
+  else if delta = 0 then
+  begin
+    // Jedno podwójne rozwiązanie
+    x1 := (-b / (2 * a));
+
+    writeln('Rownanie ma jedno podwojne rozwiazanie:');
+    writeln('x = ', x1:0:2);
+  end
+  else
+  begin
+    // Brak rozwiązań rzeczywistych
+    writeln('Rownanie nie ma rozwiazan rzeczywistych.');
+  end;
+end.
