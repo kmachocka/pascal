@@ -1,0 +1,62 @@
+program ZuzyciePradu;
+
+uses crt, math;
+
+// Stała dla mocy czynnej w kW
+const
+  MocCzynna = 3.0;  // Moc czynna w kW
+
+// Procedura 1: Sterowanie programem
+procedure SterowanieProgramem;
+var
+  czas: Integer;
+  mocCalkowita, zuzycieEnergii: Real;
+begin
+  // 1. Wywołujemy funkcję wykonującą obliczenia
+  czas := 3600;  // Czas działania rejestratora w sekundach (np. 3600 sekund = 1 godzina)
+
+  // 2. Obliczanie zużycia energii
+  zuzycieEnergii := ObliczZuzycieEnergii(czas, MocCzynna);
+  
+  // 3. Wyświetlamy wynik
+  WyswietlWynik(zuzycieEnergii);
+end;
+
+// Procedura 2: Obliczanie zużycia energii
+function ObliczZuzycieEnergii(czas: Integer; mocCzynna: Real): Real;
+var
+  mocChwilowa, mocBierna, sumaEnergii: Real;
+  t: Integer;
+begin
+  sumaEnergii := 0.0;
+  
+  // Moc bierna to 10% mocy czynnej
+  mocBierna := mocCzynna * 0.1;
+  
+  // Obliczamy zużycie energii przez godzinę, zakładając, że czas to liczba sekund
+  for t := 1 to czas do
+  begin
+    // Funkcja sinusoidalna dla chwilowej mocy
+    mocChwilowa := mocCzynna * (1 + sin(t / 3600 * 2 * Pi));  // Moc czynna zmienia się sinusoidalnie
+    
+    // Całkowita moc to suma mocy czynnej i biernej
+    sumaEnergii := sumaEnergii + (mocChwilowa + mocBierna) / 3600;  // Podziel przez 3600, aby uzyskać kWh
+  end;
+
+  Result := sumaEnergii;
+end;
+
+// Procedura 3: Wyświetlanie wyników
+procedure WyswietlWynik(zuzycieEnergii: Real);
+begin
+  WriteLn('Całkowite zużycie energii elektrycznej wynosi: ', zuzycieEnergii:0:2, ' kWh');
+end;
+
+// Główna część programu
+begin
+  // Uruchamiamy procedurę sterującą programem
+  SterowanieProgramem;
+  
+  // Czekamy na wciśnięcie klawisza przed zakończeniem programu
+  ReadLn;
+end.
