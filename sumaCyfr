@@ -1,0 +1,54 @@
+program SumaCyfr;
+
+uses crt;
+
+// Funkcja 1: Odczytanie liczby całkowitej (zwraca liczbę całkowitą)
+function CzytajLiczbe: Integer;
+begin
+  Write('Podaj liczbę całkowitą: ');
+  ReadLn(Result);  // Odczytujemy liczbę i zwracamy ją
+end;
+
+// Funkcja 2: Obliczanie sumy cyfr liczby całkowitej (zwraca sumę cyfr)
+function SumaCyfr(liczba: Integer): Integer;
+var
+  suma: Integer;
+begin
+  suma := 0;
+  while liczba <> 0 do
+  begin
+    suma := suma + (liczba mod 10);  // Dodajemy resztę z dzielenia przez 10 (cyfrę jednostkową)
+    liczba := liczba div 10;  // Usuwamy ostatnią cyfrę
+  end;
+  Result := suma;  // Zwracamy wynik sumy cyfr
+end;
+
+// Procedura 3: Wypisanie wyniku obliczeń
+procedure WypiszWynik(liczba: Integer; suma: Integer);
+begin
+  WriteLn('Liczba: ', liczba);
+  WriteLn('Suma cyfr tej liczby: ', suma);
+end;
+
+// Procedura główna 4: Wywołanie funkcji i procedur
+procedure ObliczSumeCyfr;
+var
+  liczba, suma: Integer;
+begin
+  // 1. Odczytujemy liczbę
+  liczba := CzytajLiczbe;
+  
+  // 2. Obliczamy sumę cyfr
+  suma := SumaCyfr(liczba);
+  
+  // 3. Wypisujemy wynik
+  WypiszWynik(liczba, suma);
+end;
+
+begin
+  // Wywołanie głównej procedury
+  ObliczSumeCyfr;
+  
+  // Czekamy na wciśnięcie klawisza przed zakończeniem programu
+  ReadLn;
+end.
