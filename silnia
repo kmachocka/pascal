@@ -1,0 +1,56 @@
+program SilniaInt64;
+
+uses SysUtils;
+
+function Silnia(n: Int64): Int64;
+var
+  i: Int64;
+  wynik: Int64;
+begin
+  wynik := 1;
+  for i := 1 to n do
+    wynik := wynik * i;
+  Silnia := wynik;
+end;
+
+var
+  n, maxN: Int64;
+  wynik: Int64;
+  poprawne: Boolean;
+begin
+  maxN := 0;
+  n := 1;
+  poprawne := True;
+
+  writeln('Obliczanie maksymalnego argumentu dla poprawnej silni z Int64:');
+
+  while poprawne do
+  begin
+    try
+      wynik := Silnia(n);
+      writeln('n = ', n, ' -> ', wynik);
+      maxN := n; // Aktualizujemy maksymalny poprawny argument
+      Inc(n);    // Przechodzimy do następnego argumentu
+    except
+      on E: EIntOverflow do
+      begin
+        poprawne := False;
+        writeln('Przekroczenie zakresu przy n = ', n);
+      end;
+    end;
+  end;
+
+  writeln('Maksymalna wartość n z poprawnym wynikiem: ', maxN);
+  writeln('Wynik dla n = ', maxN + 1, ' (n + 1):');
+
+  try
+    wynik := Silnia(maxN + 1);
+    writeln('Silnia(', maxN + 1, ') = ', wynik);
+  except
+    on E: EIntOverflow do
+    begin
+      writeln('Przekroczenie zakresu dla n = ', maxN + 1);
+    end;
+  end;
+
+end.
